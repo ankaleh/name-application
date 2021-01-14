@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Page, Navigation, Top } from './styles/div'
-import { TextPrimary } from './styles/textStyles'
+import React, { useState } from 'react'
+import { Navigation, Margin } from './styles/div'
 import Notification from './components/Notification'
-
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { LinkText } from './styles/textStyles'
 import Names from './components/Names'
-import { useQuery } from '@apollo/client'
-import { loader } from 'graphql.macro'
+import Amount from './components/Amount'
+import Main from './components/Main'
 
-const ORDERED_BY_AMOUNT = loader('./graphql/queries/orderedByAmount.graphql')
-const IN_ALPHABETICAL_ORDER = loader('./graphql/queries/orderedByAmount.graphql')
 
 const App = () => {
-  
-  const allNames = useQuery(ORDERED_BY_AMOUNT)
-  //const inAlphabeticalOrder = useQuery(IN_ALPHABETICAL_ORDER)
-  const [ notification, setNotification ] = useState('')
 
-  const [ names, setNames ] = useState(null)
+  const [ notification, setNotification ] = useState('')
   const [ onlyNames, setOnlyNames ] = useState(false)
-  const [ amount, setAmount ] = useState(null)
-  //const [ namesInAlphabeticalOrder, setNamesInAlphabeticalOrder] = useState(null)
 
   const showNotification = (message) => {
     setNotification(message)
@@ -28,42 +20,40 @@ const App = () => {
     }, 3000)
   }
 
-  useEffect(() => {
-    if (allNames.data) {
-        setNames(allNames.data.orderedByAmount)
-    }
-    if (allNames.error) {
-        console.log('Virheviesti palvelimelta: ', allNames.error.message);
-        //props.showNotification(`Tapahtui virhe: ${allNames.error.message}`)
-    } 
-}, [allNames]); 
-
-  if (allNames.loading) {
-    return <TextPrimary>Nimiä haetaan</TextPrimary>
-  }
   return (
-    <div>
+    <Router>
       {notification
         ? <Notification notification={notification}/>
-        : <Top> </Top>
+        : <Margin> </Margin>
       }
-      
       <Navigation>
-        <button onClick={() => setOnlyNames(false) }>Yleisimmät nimet yleisyysjärjestyksessä</button>
-        <button onClick={() => setOnlyNames(true)}>Yleisimmät nimet aakkosjärjestyksessä</button>
-        {/* <button onClick={() => setAmount(names.map(n => n.amount).reduce((total, num) => total + num))}>Suosituimpia nimiä yhteensä</button> */}
+        <LinkText to='/'>Alkuun</LinkText>
+        <LinkText to='/amount'>Suosituimpien nimien lukumäärät</LinkText>
+        <LinkText to='/all'>Yleisimmät nimet</LinkText>
       </Navigation>
-      <Page>
-        <TextPrimary>Etsi ja järjestä haluamallasi tavalla Solitassa työskentelevien kymmenen yleisintä naisen nimeä ja kymmenen miehen nimeä. </TextPrimary>
-        
-        {names
-        ? <Names onlyNames={onlyNames} names={names} />
-        : null}
 
-        <div>{amount}</div>
-      </Page>
-    </div>
+      <Switch>
+        <Route path='/all'>
+          <Names onlyNames={onlyNames} setOnlyNames={setOnlyNames}/>
+        </Route>
+        <Route path='/amount'>
+          <Amount showNotification={showNotification}/>
+        </Route>
+        <Route path='/'>
+          <Main/>
+        </Route>
+      </Switch>
+
+      <Navigation>
+
+      </Navigation>
+
+      <Margin>
+
+      </Margin>
+    </Router>
   )
 }
 
-export default App;
+export default App
+

@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-export const Top = styled.div`
+export const Margin = styled.div`
     background: black;
     height: 35px;
     border-bottom: 3px solid white;
 
     display: flex;
     justify-content: center;
-`//#bc5a45
+`
 
 export const Navigation = styled.div`
     background: #FFFFFF;
@@ -19,40 +19,25 @@ export const Navigation = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-
-`
-export const Info = styled.div`
-    background: #b7d7e8;
-    padding: 10px;
-    border-bottom: 2px solid white;
-    height: 60px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
-
 `
 export const StyledNameContainer = styled.div`
     padding: 20px;
+    margin-top: 20px;
     border: 2px solid black;
     background: white;
-    min-width: 250px;
+    width: 250px;
     max-height: 100px;
-    border-radius: 15px;
-    margin: 10px;
-    justify-content: flex-start;
-    align-items: center;
+    border-radius: 5px;
     
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-
+    justify-content: flex-start;
+    align-items: center;
 `
 export const StyledAmount = styled.div`
     border: 1.5px solid grey;
     padding: 15px;
+    margin: 15px;
     width: 50px;
     height: 50px;
     border-radius: 50px;
@@ -65,29 +50,29 @@ export const StyledAmount = styled.div`
 
     display: flex;
     flex-irection: row;
-    
 `
 
 export const Page = styled.div`
     background: #F7F7F7;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
+    min-height: 500px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 `
 export const ErrorMessage = styled.div`
     color: red;
     background: lightgrey;
-    height: 35px;
+    max-height: 35px;
     border-bottom: 2px solid white;
     padding: 10px;
+    font: 15px Verdana, sans-serif;
 
     display: flex;
     justify-content: center;
-    
+    align-items: center;
 `
 export const NotificationMessage = styled.div`
     color: green;
@@ -98,5 +83,5 @@ export const NotificationMessage = styled.div`
 
     display: flex;
     justify-content: center;
-    
 `
+
